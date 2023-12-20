@@ -8,10 +8,14 @@ const Buttonmoins = document.querySelector('#boutton-');
 const Buttonplus = document.querySelector('#boutton');
 const Compteur =document.querySelector('#compteur');
 const Reset = document.querySelector('#reset');
-
 let Zero = 1;
 let atop = app.style.top
 let aleft = app.style.left
+let randomTop;
+let randomLeft;
+
+const bonus = document.querySelector("#bonus")
+
 document.addEventListener('keydown', myFunction);
 
 
@@ -20,7 +24,15 @@ function myFunction(event) {
     case 'ArrowDown':
       if(parseInt(app.style.top) < 690){
         descendre+=Zero*10
-        app.style.top= descendre+"px"; }
+        app.style.top= descendre+"px";
+      
+        console.log(parseInt(app.style.top))
+        console.log(randomTop)
+        if(parseInt(app.style.top)==randomTop && parseInt(app.style.left)==randomLeft){
+          console.log('bonjour')
+          playbonus();
+        }
+      }
       break;
     case 'ArrowUp':
       if(parseInt(app.style.top) > 0){
@@ -57,7 +69,10 @@ function myFunction(event) {
 
 
     Buttonmoins.addEventListener('click', ()=> {
-        if (Zero > 0.5) {
+        if(Zero===0){
+          Zero=0.1;
+        }
+         else if(Zero > 0.1) {
             Zero-=0.5;
         }    
         else {
@@ -68,7 +83,10 @@ function myFunction(event) {
 
 
 Buttonplus.addEventListener('click', ()=> {
-if (Zero < 5) {
+  if(Zero===5.1){
+    Zero=5
+  }
+  else if (Zero < 5) {
     Zero+=0.5;
 }   
 else { 
@@ -81,3 +99,18 @@ Reset.addEventListener('click', ()=> {
     Zero=1;
     Compteur.textContent=Zero;
 });
+
+function playbonus(){
+  randomTop = Math.floor(Math.random()*650)
+  randomLeft = Math.floor(Math.random()*950)
+  bonus.style.left = randomLeft+"px";
+  bonus.style.top = randomTop+"px";
+  bonus.style.display = 'block';
+}
+playbonus(); 
+console.log(parseInt(app.style.top))
+console.log(randomTop)
+if(parseInt(app.style.top)==randomTop && parseInt(app.style.left)==randomLeft){
+  console.log('bonjour')
+  playbonus();
+}
